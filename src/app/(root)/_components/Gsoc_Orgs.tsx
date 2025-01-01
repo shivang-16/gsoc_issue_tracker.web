@@ -22,7 +22,7 @@ export default function Gsoc_Orgs() {
   }, []);
 
   return (
-    <BentoGrid className="max-w-4xl mx-auto">
+    <BentoGrid className="mx-auto ">
       {items.map((item, i) => (
         <BentoGridItem
           key={i}
@@ -32,6 +32,12 @@ export default function Gsoc_Orgs() {
           icon={item.image_url}
           className={i === 3 || i === 6 ? "md:col-span-2" : ""}
           url={item.github}
+          technologies={item.technologies}
+          twitter_url={item.twitter_url}
+          github_url={item.github}
+          blog_url={item.blog_url}
+          website_url={item.url}
+          email={item.contact_email}
         />
       ))}
     </BentoGrid>
@@ -39,7 +45,7 @@ export default function Gsoc_Orgs() {
 }
 
 const Skeleton = ({item}: {item: any}) => (
-  <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-slate-100">
+  <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-[#171717]">
   <img src={item.image_url} className="h-16 m-auto" alt="" />
   </div>
 );

@@ -15,7 +15,7 @@ export default async function MainLayout({
   return (
     <>
       
-        <div>
+        <div className="dark">
           {children}
         </div>
       
