@@ -19,7 +19,7 @@ export default async function MainLayout({
       
         <div className="dark h-[100vh]">
           <Navbar />
-          <div className="flex h-full">
+          <div className="flex h-full ">
           <SidebarDemo/>
           {children}
           </div>

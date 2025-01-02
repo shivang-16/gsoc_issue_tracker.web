@@ -4,8 +4,13 @@ import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar";
 import {
   IconArrowLeft,
   IconBrandTabler,
-  IconSettings,
+  IconDashboard,
   IconUserBolt,
+  IconInfoSquare,
+  IconHourglass,
+  IconGitBranch,
+  IconGitFork,
+  IconBrandGithub
 } from "@tabler/icons-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -19,30 +24,23 @@ export function SidebarDemo() {
       label: "Dashboard",
       href: "/",
       icon: (
-        <IconBrandTabler className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+        <IconDashboard className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
     {
       label: "Organizations",
       href: "/gsoc-orgs",
       icon: (
-        <IconUserBolt className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+        <IconGitFork className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
     {
-      label: "Settings",
-      href: "#",
+      label: "Issues",
+      href: "/gsoc-issues",
       icon: (
-        <IconSettings className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+        <IconGitBranch className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
-    },
-    {
-      label: "Logout",
-      href: "#",
-      icon: (
-        <IconArrowLeft className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-      ),
-    },
+    }
   ];
   const [open, setOpen] = useState(false);
   return (
@@ -61,17 +59,17 @@ export function SidebarDemo() {
               ))}
             </div>
           </div>
-          <div>
+          {/* <div>
             <SidebarLink
               link={{
-                label: "Manu Arora",
+                label: "Name",
                 href: "#",
                 icon: (
 <></>
                 ),
               }}
             />
-          </div>
+          </div> */}
         </SidebarBody>
       </Sidebar>
     </div>
@@ -80,16 +78,16 @@ export function SidebarDemo() {
 export const Logo = () => {
   return (
     <Link
-      href="#"
+      href="https://github.com/shivang-16/Gsoc_issue_tracker.web"
       className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
     >
-      <div className="h-5 w-6 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
+      <IconBrandGithub className="text-black dark:text-white h-5 w-5 flex-shrink-0" />
       <motion.span
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         className="font-medium text-black dark:text-white whitespace-pre"
       >
-        Acet Labs
+        Gsoc Issue Tracker
       </motion.span>
     </Link>
   );
@@ -97,12 +95,10 @@ export const Logo = () => {
 export const LogoIcon = () => {
   return (
     <Link
-      href="#"
+      href="https://github.com/shivang-16/Gsoc_issue_tracker.web"
       className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
     >
-      <div className="h-5 w-6 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
+      <IconBrandGithub className="text-black dark:text-white h-5 w-5 flex-shrink-0" />
     </Link>
   );
 };
-
-
