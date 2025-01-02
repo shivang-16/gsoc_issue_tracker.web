@@ -46,14 +46,7 @@ export const BentoGridItem = ({
   website_url?: string;
   email?: string;
 }) => {
-  console.log(
-    url,
-    twitter_url,
-    github_url,
-    blog_url,
-    website_url,
-    email
-  );
+ 
   return (
     <div
       className={cn(

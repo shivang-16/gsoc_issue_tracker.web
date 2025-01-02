@@ -4,14 +4,14 @@ import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import apiClient from '@/apiClient/apiClient';
 import { Organisation } from "@/lib/type";
 
-export default function Gsoc_Orgs() {
+export default function Gsoc_Orgs({top}: {top?: boolean}) {
   const [items, setItems] = useState<Organisation[]>([]);
 
   useEffect(() => {
     const fetchOrgs = async () => {
       try {
         console.log('Fetching GSoC organizations...');
-        const response = await apiClient.get('/api/gsoc/orgs');
+        const response = await apiClient.get(`/api/gsoc/orgs?top=${top}`);
         console.log('Fetched GSoC organizations:', response.data);
         setItems(response.data);
       } catch (error) {
