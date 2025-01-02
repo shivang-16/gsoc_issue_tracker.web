@@ -37,7 +37,7 @@ export default function Issues({ filters }: { filters: any }) {
     const fetchIssues = async () => {
       try {
         console.log('Fetching GitHub issues...');
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/gsoc/issues/popular?filters=${filters && JSON.stringify(filters)}`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/gsoc/issues/popular?label=${filters.label}&organizations=${filters.organizations}`, {
           method: 'GET',
           // cache: 'force-cache',
         });

@@ -185,14 +185,14 @@ const IssueFilter = ({ onFilterChange }: { onFilterChange: (filter: any) => void
         )}
       </div>
 
-      <Select
+      {/* <Select
         options={issueStates}
         placeholder="Select Issue State"
         styles={customStyles}
         onChange={handleIssueStateChange}
         isMulti
         value={selectedIssueState}
-      />
+      /> */}
         <Select
           options={organizationOptions}
           placeholder="Select Organization"
