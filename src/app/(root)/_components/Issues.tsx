@@ -79,7 +79,7 @@ export default function Issues({ filters }: { filters: any }) {
         </div>
       ) : (
         <div className="grid grid-rows-1 sm:grid-rows-2 gap-4">
-          {issues.map((issue, i) => (
+          {issues && issues.length > 0 && issues.map((issue, i) => (
             <div
               key={i}
               className="py-1 px-4 bg-[#141414] border-2 border-gray-800 rounded-2xl shadow-md flex items-center justify-between"

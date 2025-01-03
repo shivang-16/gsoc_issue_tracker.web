@@ -33,7 +33,7 @@ export default function Gsoc_Orgs({top, filters}: {top?: boolean, filters?: any}
           <ClipLoader color="#fff" loading={loading} size={50} />
         </div>
       ) : (
-        items.map((item, i) => (
+        items && items.map((item, i) => (
           <BentoGridItem
             key={i}
             title={item.organisation}
