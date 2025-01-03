@@ -59,17 +59,23 @@ export function SidebarDemo() {
               ))}
             </div>
           </div>
-          {/* <div>
+          <div>
             <SidebarLink
               link={{
-                label: "Name",
-                href: "#",
+                label: "Shivang",
+                href: "https://github.com/shivang-16",
                 icon: (
-<></>
+                  <Image
+                    src="https://github.com/shivang-16.png"
+                    alt="Shivang"
+                    width={24}
+                    height={24}
+                    className="rounded-full"
+                  />
                 ),
               }}
             />
-          </div> */}
+          </div>
         </SidebarBody>
       </Sidebar>
     </div>
