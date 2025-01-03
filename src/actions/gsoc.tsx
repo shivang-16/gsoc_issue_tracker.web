@@ -5,7 +5,8 @@ export const fetchGSoCOrganizations = async (top?: boolean, filters: any = {}): 
             method: 'GET',
             cache: 'force-cache',
         });
-        return await response.json();
+        const data = await response.json();
+        return data.organizations;
     } catch (error) {
         console.error('Error fetching GSoC organizations:', error);
         throw error;

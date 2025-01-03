@@ -39,7 +39,7 @@ export default function Issues({ filters }: { filters: any }) {
         console.log('Fetching GitHub issues...');
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/gsoc/issues/popular?label=${filters.label}&organizations=${filters.organizations}`, {
           method: 'GET',
-          // cache: 'force-cache',
+          cache: 'force-cache',
         });
         
         console.log('Response:', response);
@@ -50,7 +50,8 @@ export default function Issues({ filters }: { filters: any }) {
         }
   
         // Parse the JSON response
-        const data = await response.json();
+        const res = await response.json();
+        const data = res.issues;
         console.log('Data:', data);
         
         // Check if data exists and is an array
