@@ -4,7 +4,11 @@
 
 body {
   font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(to right, #020204, #081a12, #020204);
+  margin: 0;
+  padding: 0;
 }
+
 
 @layer base {
   :root {
@@ -71,3 +75,31 @@ body {
     @apply dark;
   }
 }
+
+.search-filters-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.search-item {
+  flex: 1 1 calc(25% - 16px); /* Adjust for single-line layout */
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #777;
+  border-radius: 4px;
+  background-color: black;
+  color: white;
+}
+
+/* Responsive layout */
+@media (max-width: 768px) {
+  .search-item {
+    flex: 1 1 calc(50% - 16px); /* Switch to 2x2 layout */
+  }
+}
+
+

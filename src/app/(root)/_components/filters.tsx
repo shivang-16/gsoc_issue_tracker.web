@@ -1,7 +1,7 @@
 'use client';
 import apiClient from '@/apiClient/apiClient';
 import React, { useEffect, useState } from 'react';
-import Select, { MultiValue, ActionMeta } from 'react-select';
+import Select, { MultiValue } from 'react-select';
 
 const SearchFilters = ({ onFilterChange }: { onFilterChange: (filter: any) => void }) => {
   const [technologyOptions, setTechnologyOptions] = useState([]);
@@ -44,8 +44,8 @@ const SearchFilters = ({ onFilterChange }: { onFilterChange: (filter: any) => vo
     }),
     control: (provided: any, state: { isFocused: any }) => ({
       ...provided,
-      backgroundColor: state.isFocused ? '#333' : '#222',
-      borderColor: '#444',
+      backgroundColor: 'black',
+      borderColor: '#777',
       boxShadow: state.isFocused ? '0 0 0 2px #555' : 'none',
       '&:hover': {
         borderColor: '#555',
@@ -94,63 +94,59 @@ const SearchFilters = ({ onFilterChange }: { onFilterChange: (filter: any) => vo
     }),
   };
 
-  const handleOrganizationChange = (event: { target: { value: any } }) => {
+  const handleOrganizationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     setOrganizationSearch(value);
     onFilterChange((prev: any) => ({ ...prev, organization: value }));
   };
 
   const handleTechnologyChange = (newValue: MultiValue<{ value: string; label: string }>) => {
-    const selectedValues = newValue?.map((option: { value: any }) => option.value) || [];
+    const selectedValues = newValue?.map((option) => option.value) || [];
     onFilterChange((prev: any) => ({ ...prev, technologies: selectedValues }));
   };
 
   const handleYearChange = (newValue: MultiValue<{ value: string; label: string }>) => {
-    const selectedValues = newValue?.map((option: { value: any }) => option.value) || [];
+    const selectedValues = newValue?.map((option) => option.value) || [];
     onFilterChange((prev: any) => ({ ...prev, gsoc_years: selectedValues }));
   };
 
-  const handleTopicChange = (selectedOptions: any) => {
-    const selectedValues = selectedOptions?.map((option: { value: any }) => option.value) || [];
+  const handleTopicChange = (newValue: MultiValue<{ value: string; label: string }>) => {
+    const selectedValues = newValue?.map((option) => option.value) || [];
     onFilterChange((prev: any) => ({ ...prev, topics: selectedValues }));
   };
 
   return (
-    <div
-      className="rounded-md border-neutral-700 m-auto items-center justify-center bg-neutral-900 flex flex-wrap gap-4 p-4 shadow-lg"
-      style={{ display: 'flex', flexWrap: 'wrap', gap: '16px' }}
-    >
-      <div className="search-item" style={{ flex: '1 1 calc(50% - 16px)' }}>
+    <div className="search-filters-container">
+      <div className="search-item">
         <input
           value={organizationSearch}
           placeholder="Search Organizations"
           onChange={handleOrganizationChange}
-          className="bg-[#222] border-[#444] focus:ring-2 focus:ring-[#555] text-white rounded-md w-full px-3 py-2"
-          style={{ borderWidth: '1px' }}
+          className="search-input"
         />
       </div>
-      <div className="search-item" style={{ flex: '1 1 calc(50% - 16px)' }}>
+      <div className="search-item">
         <Select
           options={technologyOptions}
-          placeholder="Search Technologies"
+          placeholder="Technologies"
           styles={customStyles}
           isMulti
           onChange={handleTechnologyChange}
         />
       </div>
-      <div className="search-item" style={{ flex: '1 1 calc(50% - 16px)' }}>
+      <div className="search-item">
         <Select
           options={yearOptions}
-          placeholder="Select Year(s)"
+          placeholder="Year(s)"
           styles={customStyles}
           isMulti
           onChange={handleYearChange}
         />
       </div>
-      <div className="search-item" style={{ flex: '1 1 calc(50% - 16px)' }}>
+      <div className="search-item">
         <Select
           options={topicOptions}
-          placeholder="Select Topic(s)"
+          placeholder="Topic(s)"
           styles={customStyles}
           isMulti
           onChange={handleTopicChange}

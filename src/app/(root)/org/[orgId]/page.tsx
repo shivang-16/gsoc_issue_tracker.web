@@ -55,7 +55,7 @@ const OrganizationDetails = () => {
       {orgDetails ? (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {/* Main Content */}
-          <div className="col-span-2 bg-[#1c1c1c] rounded-lg shadow-lg overflow-hidden">
+          <div className="col-span-2 bg-transparent border-2 rounded-lg shadow-lg overflow-hidden">
             <div className="p-6">
               {/* Header Section */}
               <div className="flex items-center gap-6 mb-6">
@@ -134,7 +134,7 @@ const OrganizationDetails = () => {
                     {orgDetails.technologies.map((tech, index) => (
                       <span
                         key={index}
-                        className="bg-gray-700 text-gray-300 px-3 py-1 rounded-full text-sm"
+                        className="bg-transparent hover:bg-gradient-to-r from-[#1a2c22] via-[#193828] to-[#1c422c] border-2 text-gray-300 px-3 py-1 rounded-full text-sm"
                       >
                         {tech}
                       </span>
@@ -146,7 +146,7 @@ const OrganizationDetails = () => {
                     {orgDetails.topics.map((topic, index) => (
                       <span
                         key={index}
-                        className="bg-gray-700 text-gray-300 px-3 py-1 rounded-full text-sm"
+                        className="bg-transparent border-2 hover:bg-gradient-to-r from-[#1a2c22] via-[#193828] to-[#1c422c] text-gray-300 px-3 py-1 rounded-full text-sm"
                       >
                         {topic}
                       </span>
@@ -156,27 +156,28 @@ const OrganizationDetails = () => {
               </div>
 
               {/* GSoC Years Tabs */}
-              <h2 className="text-xl font-semibold text-gray-200 mt-6">GSoC Years:</h2>
+              <h2 className="text-xl font-semibold text-gray-200 mt-10">GSoC Years:</h2>
               <div className="flex gap-4 mt-4">
                 {Object.keys(orgDetails.gsoc_years).map((year) => (
                   <button
                     key={year}
                     className={`px-4 py-2 rounded-lg text-gray-200 font-semibold ${
                       activeYear === year
-                        ? "bg-gray-600"
-                        : "bg-gray-800 hover:bg-gray-700"
+                        ? "bg-gradient-to-r from-[#233c2e] via-[#224733] to-[#1c422c]"
+                        : "bg-transparent border-2 hover:bg-gray-700"
                     }`}
                     onClick={() => setActiveYear(year)}
                   >
                     {year}
-                  </button>
+                  </button> 
                 ))}
               </div>
 
               {/* GSoC Year Projects */}
               {activeYear && orgDetails.gsoc_years[activeYear] && (
-                <div className="bg-[#1c1c1c] p-4 rounded-lg shadow-md mt-4">
-                  <h3 className="text-lg font-semibold text-gray-300">{activeYear}</h3>
+                <div className="bg-transparent p-4 rounded-lg shadow-md mt-2">
+                  {/* <h3 className="text-lg font-semibold text-gray-300">{activeYear}</h3> */}
+                  <p>Total Projects: {orgDetails.gsoc_years[activeYear].projects.length}</p>
                   <ul className="grid grid-cols-1 gap-4 mt-4">
                     {orgDetails.gsoc_years[activeYear].projects.map((project, index) => (
                       <li key={index} className="border-2 px-4 py-2 rounded-lg border-gray-600">
@@ -219,7 +220,7 @@ const OrganizationDetails = () => {
           </div>
 
           {/* Issues Section */}
-          <div className="bg-[#1c1c1c] rounded-lg shadow-lg p-6 h-full overflow-auto">
+          <div className="bg-transparent border-2 rounded-lg shadow-lg p-6 h-full overflow-auto">
         <Issues filters={{ organizations: [orgname] }}/>
           </div>
         </div>

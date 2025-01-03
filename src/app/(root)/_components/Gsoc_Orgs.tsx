@@ -77,8 +77,8 @@ export default function Gsoc_Orgs({ top, filters }: { top?: boolean, filters?: a
         <div className="flex justify-center mt-4">
           <button
             onClick={loadMore}
-            className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
-          >
+            className="px-6 py-2 bg-green-700 text-white rounded-full hover:bg-green-800"
+            >
             Load More
           </button>
         </div>
@@ -93,7 +93,10 @@ export default function Gsoc_Orgs({ top, filters }: { top?: boolean, filters?: a
 }
 
 const Skeleton = ({ item }: { item: any }) => (
-  <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-[#171717]">
-    <img src={item.image_url} className="h-16 m-auto" alt="" />
+  <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-transparent items-center justify-center">
+    <div className="flex items-center justify-center bg-gray-300 rounded-lg p-2">
+      <img src={item.image_url} className="h-16" alt="Skeleton" />
+    </div>
   </div>
 );
+

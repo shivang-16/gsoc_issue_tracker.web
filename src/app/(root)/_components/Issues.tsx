@@ -94,11 +94,11 @@ export default function Issues({ filters }: { filters: any }) {
         </div>
       ) : (
         <div>
-          <div className="grid grid-cols-1 sm:grid-cols-1 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-1 gap-2">
             {issues && issues.length > 0 && issues.map((issue, i) => (
               <div
                 key={i}
-                className="py-2 px-3 sm:py-4 sm:px-6 bg-[#141414] border-2 border-gray-800 rounded-2xl shadow-md flex items-center justify-between flex-col sm:flex-row"
+                className="py-2 px-3 sm:py-3 sm:px-4 border-2 border-gray-600 rounded-2xl shadow-md flex items-center justify-between flex-col sm:flex-row"
               >
                 <div>
                   <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
@@ -149,7 +149,7 @@ export default function Issues({ filters }: { filters: any }) {
                     href={issue.html_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-4 py-1 text-xs sm:text-sm bg-blue-500 text-white ml-3 rounded-xl hover:bg-blue-600"
+                    className="px-4 py-1 text-xs sm:text-sm border-2 border-green-800 bg-gradient-to-r from-green-900 via-green-700 to-green-900 text-white ml-3 rounded-xl hover:bg-blue-600"
                   >
                     View
                   </a>
@@ -162,7 +162,7 @@ export default function Issues({ filters }: { filters: any }) {
             <div className="flex justify-center mt-4">
               <button
                 onClick={loadMoreIssues}
-                className="px-6 py-2 bg-blue-500 text-white rounded-xl hover:bg-blue-600"
+                className="px-6 py-2 bg-green-700 text-white rounded-full hover:bg-green-800"
                 disabled={loading}
               >
                 {loading ? 'Loading...' : 'Load More'}
