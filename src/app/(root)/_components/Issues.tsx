@@ -9,12 +9,15 @@ type Issue = {
   number: number;
   user: {
     login: string;
+    avatar_url: string; // Added avatar_url
+    html_url: string;   // Added html_url
   };
   created_at: string;
   body: string;
   state: string;
   comments: number;
   labels: { name: string }[];
+  github: string; // Assuming github field exists in the issue object
 };
 
 const colors = [
@@ -43,7 +46,7 @@ export default function Issues({ filters }: { filters: any }) {
 
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/gsoc/issues/popular?label=${filters.label}&organizations=${organizationsParam}&page=${page}`, {
         method: 'GET',
-        cache: 'force-cache',
+        // cache: 'force-cache',
         credentials: 'include',
       });
 
@@ -100,11 +103,12 @@ export default function Issues({ filters }: { filters: any }) {
                 <div>
                   <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
                     <h3 className="text-sm sm:text-lg font-semibold text-white">
-                      <span className="text-gray-400">#{issue.number}</span> {issue.title}
+                      <span className="text-gray-400">#{issue.number}</span> {issue.title} 
+                      <span className="px-2 bg-green-800 border-2 border-gray-600 text-white rounded-full text-xs sm:text-sm">
+                        {issue.state}
+                      </span>
                     </h3>
-                    <span className="px-2 bg-green-800 border-2 border-gray-600 text-white rounded-full text-xs sm:text-sm">
-                      {issue.state}
-                    </span>
+                    
                   </div>
 
                   <div className="mt-2">
@@ -125,7 +129,18 @@ export default function Issues({ filters }: { filters: any }) {
                     })}
                   </div>
                   <p className="text-xs sm:text-sm mt-2 text-gray-400">
-                    {issue.user.login} opened on {new Date(issue.created_at).toLocaleDateString()}
+                    <a href={issue.user.html_url} target="_blank" rel="noopener noreferrer">
+                      <img 
+                        src={issue.user.avatar_url} 
+                        alt={issue.user.login} 
+                        className="w-4 h-4 rounded-full inline-block mr-2"
+                      />
+                      {issue.user.login}
+                    </a> opened on {new Date(issue.created_at).toLocaleDateString()}
+                  </p>
+                  {/* Add Organization Name */}
+                  <p className="text-xs sm:text-sm mt-1 text-gray-400 font-semibold ">
+                    Organization: <span className="bg-[#1f2112] p-1 text-white px-2 rounded-full">{issue.html_url.split('/')[3]}</span>
                   </p>
                 </div>
                 <div className="flex items-center mt-2 sm:mt-0">

@@ -25,7 +25,7 @@ export const Dashboard = () => {
         {/* Top Issues Section */}
         <div className="flex-1 border-b-4 h-full overflow-auto">
           <div className="p-4 md:p-6 rounded-md border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 flex flex-col gap-4 shadow-lg">
-            <div className="flex justify-between items-center gap-2 w-full pt-20">
+            <div className="flex justify-between items-center gap-2 w-full pt-5 sm:pt-20">
               <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-800 dark:text-white">
                 Top Issues
               </h2>
@@ -45,7 +45,7 @@ export const Dashboard = () => {
         {/* GSoC Orgs Section */}
         <div className="flex-1 h-full overflow-auto">
           <div className="p-4 md:p-6 rounded-md border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 flex flex-col gap-4 shadow-lg">
-            <div className="flex justify-between items-center gap-2 w-full pt-5 sm:pt-20">
+            <div className="flex justify-between items-center gap-2 w-full pt-2 sm:pt-20">
               <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-800 dark:text-white">
                 Top GSoC Organizations
               </h2>
