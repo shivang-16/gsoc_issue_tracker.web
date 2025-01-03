@@ -180,6 +180,34 @@ console.log(orgname, "here is the org name");
                       <li key={index} className="border-2 px-4 py-2 rounded-lg border-gray-600">
                         <h5 className="font-bold text-gray-300">{project.title}</h5>
                         <p className="text-gray-400">{project.short_description}</p>
+                        <p>
+                          <strong className="text-gray-400">Contributor:</strong>{" "}
+                          {project.student_name}
+                        </p>
+                        <p>
+                          <strong className="text-gray-400">Code:</strong>{" "}
+                          {project.code_url ? (
+                            <a
+                              href={project.code_url}
+                              target="_blank"
+                              className="text-blue-400 underline"
+                            >
+                              <i className="fas fa-code"></i>
+                            </a>
+                          ) : (
+                            "Not available"
+                          )}
+                        </p>
+                        <p>
+                          <strong className="text-gray-400">Project:</strong>{" "}
+                          <a
+                            href={project.project_url}
+                            target="_blank"
+                            className="text-blue-400 underline"
+                          >
+                            <i className="fas fa-external-link-alt"></i>
+                          </a>
+                        </p>
                       </li>
                     ))}
                   </ul>
