@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import Select, { MultiValue, ActionMeta } from 'react-select';
-import { fetchGSoCOrganizations } from '@/actions/gsoc';
+import { fetchGSoCOrganizations, fetchGSoCOrganizationsNames } from '@/actions/gsoc';
 
 // Function to extract organization name from the GitHub URL
 export const getOrgName = async (github: string): Promise<string> => {
@@ -62,7 +62,7 @@ const IssueFilter = ({ onFilterChange }: { onFilterChange: (filter: any) => void
 
   const fetchOrganizations = async () => {
     try {
-      const response = await fetchGSoCOrganizations();
+      const response = await fetchGSoCOrganizationsNames();
   
       // Map and resolve all promises
       const orgs = await Promise.all(

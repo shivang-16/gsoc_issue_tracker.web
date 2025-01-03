@@ -2,38 +2,54 @@
 import React, { useEffect, useState } from "react";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import { Organisation } from "@/lib/type";
-import { ClipLoader } from 'react-spinners';  // Import spinner loader
+import { ClipLoader } from 'react-spinners'; // Import spinner loader
 import { fetchGSoCOrganizations } from "@/actions/gsoc";
 
-export default function Gsoc_Orgs({top, filters}: {top?: boolean, filters?: any}) {
+export default function Gsoc_Orgs({ top, filters }: { top?: boolean, filters?: any }) {
   const [items, setItems] = useState<Organisation[]>([]);
-  const [loading, setLoading] = useState<boolean>(true); // Add loading state
+  const [loading, setLoading] = useState<boolean>(true); // Loading state
+  const [page, setPage] = useState<number>(1); // Current page
+  const [hasMore, setHasMore] = useState<boolean>(true); // Whether more items are available
 
-  // console.log(filters, 'filter');
+  useEffect(() => {
+    // Reset page to 1 if filters change
+    setPage(1);
+    setHasMore(true);
+  }, [filters]);
+
   useEffect(() => {
     const fetchOrgs = async () => {
       try {
-        // console.log('Fetching GSoC organizations...');
-        const response = await fetchGSoCOrganizations(top, filters);
-        setItems(response);
+        setLoading(true);
+        const response = await fetchGSoCOrganizations(top, { ...filters, page });
+        if (response.length === 0) {
+          setHasMore(false); // No more items to load
+        } else {
+          if (page === 1) {
+            // If it's the first page, overwrite existing items
+            setItems(response);
+          } else {
+            // Append items when it's subsequent pages
+            setItems((prev) => [...prev, ...response]);
+          }
+        }
       } catch (error) {
         console.error('Error fetching GSoC organizations:', error);
       } finally {
-        setLoading(false); // Set loading to false once data is fetched
+        setLoading(false);
       }
     };
     fetchOrgs();
-  }, [filters]);
+  }, [filters, page, top]); // Trigger fetch when filters or page changes
+
+  console.log(items, "here are fetched items");
+
+  const loadMore = () => setPage((prev) => prev + 1); // Increment the page number
 
   return (
-    <BentoGrid className="mx-auto">
-      {loading ? (
-        // Show spinner loader while loading
-        <div className="flex justify-center items-center w-full h-full text-center">
-          <ClipLoader color="#fff" loading={loading} size={50} />
-        </div>
-      ) : (
-        items && items.map((item, i) => (
+    <div>
+      <BentoGrid className="mx-auto">
+        {items && items.map((item, i) => (
           <BentoGridItem
             key={i}
             title={item.organisation}
@@ -49,13 +65,33 @@ export default function Gsoc_Orgs({top, filters}: {top?: boolean, filters?: any}
             website_url={item.url}
             email={item.contact_email}
           />
-        ))
+        ))}
+      </BentoGrid>
+      {loading && (
+        <div className="flex justify-center items-center w-full h-full text-center my-4">
+          <ClipLoader color="#fff" loading={loading} size={50} />
+        </div>
       )}
-    </BentoGrid>
+      {!loading && hasMore && (
+        <div className="flex justify-center mt-4">
+          <button
+            onClick={loadMore}
+            className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+          >
+            Load More
+          </button>
+        </div>
+      )}
+      {!hasMore && (
+        <div className="flex justify-center mt-4 text-gray-400">
+          No more organizations to load.
+        </div>
+      )}
+    </div>
   );
 }
 
-const Skeleton = ({item}: {item: any}) => (
+const Skeleton = ({ item }: { item: any }) => (
   <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-[#171717]">
     <img src={item.image_url} className="h-16 m-auto" alt="" />
   </div>
