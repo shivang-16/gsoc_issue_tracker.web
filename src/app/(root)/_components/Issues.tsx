@@ -39,6 +39,7 @@ export default function Issues({ filters }: { filters: any }) {
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/gsoc/issues/popular?label=${filters.label}&organizations=${filters.organizations}&page=${page}`, {
         method: 'GET',
+        credentials: 'include',
       });
       
       if (!response.ok) {
