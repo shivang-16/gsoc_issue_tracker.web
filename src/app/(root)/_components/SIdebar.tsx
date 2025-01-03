@@ -46,7 +46,7 @@ export function SidebarDemo() {
   return (
     <div
       className={cn(
-        "h-[100vh]" // for your use case, use `h-screen` instead of `h-[60vh]`
+        "h-[100vh] fixed md:static z-50" // for your use case, use `h-screen` instead of `h-[60vh]`
       )}
     >
       <Sidebar open={open} setOpen={setOpen}>

@@ -6,6 +6,8 @@ import { Organisation } from "@/lib/type";
 import { fetchGSoCOrgDetails } from "@/actions/gsoc";
 import Issues from "../../_components/Issues";
 import { getOrgName } from "../../_components/issueFilter";
+import { ClipLoader } from 'react-spinners'; // Import spinner loader
+
 
 const OrganizationDetails = () => {
   const params = useParams();
@@ -15,8 +17,6 @@ const OrganizationDetails = () => {
   const [error, setError] = useState<string | null>(null);
   const [activeYear, setActiveYear] = useState<string | null>(null);
   const [orgname, setorgname] = useState<any>(null);
-
-console.log(orgname, "here is the org name");
 
   useEffect(() => {
     if (!orgId) return;
@@ -43,7 +43,9 @@ console.log(orgname, "here is the org name");
   }, [orgId]);
 
   if (loading)
-    return <div className="flex justify-center items-center h-screen text-xl text-gray-300">Loading...</div>;
+    return  <div className="flex justify-center items-center w-full h-full text-center my-4">
+  <ClipLoader color="#fff" loading={loading} size={50} />
+</div>;
 
   if (error)
     return <div className="flex justify-center items-center h-screen text-xl text-red-500">Error: {error}</div>;

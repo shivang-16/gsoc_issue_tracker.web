@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from "react";
-import { ClipLoader } from 'react-spinners';  // Import spinner loader
+import { ClipLoader } from 'react-spinners';
 
 type Issue = {
   title: string;
@@ -31,38 +31,34 @@ const colors = [
 export default function Issues({ filters }: { filters: any }) {
   const [issues, setIssues] = useState<Issue[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [page, setPage] = useState<number>(1); // Pagination state
-  const [hasMore, setHasMore] = useState<boolean>(true); // To check if there are more issues to load
+  const [page, setPage] = useState<number>(1);
+  const [hasMore, setHasMore] = useState<boolean>(true);
 
   const fetchIssues = async (page: number) => {
     setLoading(true);
     try {
-      // Log the filters to check if they are passed correctly
-      console.log('Filters:', filters);
-
-      // Convert the organizations array into a comma-separated string if needed
-      const organizationsParam = Array.isArray(filters.organizations) 
-        ? filters.organizations.join(',') 
+      const organizationsParam = Array.isArray(filters.organizations)
+        ? filters.organizations.join(',')
         : filters.organizations;
 
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/gsoc/issues/popular?label=${filters.label}&organizations=${organizationsParam}&page=${page}`, {
         method: 'GET',
-        // cache: 'force-cache',
+        cache: 'force-cache',
         credentials: 'include',
       });
-      
+
       if (!response.ok) {
         throw new Error(`Error: ${response.statusText}`);
       }
-  
+
       const res = await response.json();
       const data = res.issues;
 
       if (Array.isArray(data) && data.length > 0) {
-        setIssues((prevIssues) => [...prevIssues, ...data]); // Append new issues
-        if (data.length < 10) setHasMore(false); // Check if fewer issues are returned
+        setIssues((prevIssues) => [...prevIssues, ...data]);
+        if (data.length < 10) setHasMore(false);
       } else {
-        setHasMore(false); // No more issues to load
+        setHasMore(false);
       }
     } catch (error) {
       console.error('Error fetching GitHub issues:', error);
@@ -72,9 +68,9 @@ export default function Issues({ filters }: { filters: any }) {
   };
 
   useEffect(() => {
-    setPage(1); // Reset page to 1 when filters change
-    setIssues([]); // Clear previous issues
-    setHasMore(true); // Reset "hasMore"
+    setPage(1);
+    setIssues([]);
+    setHasMore(true);
   }, [filters]);
 
   useEffect(() => {
@@ -84,7 +80,7 @@ export default function Issues({ filters }: { filters: any }) {
   }, [page, filters, hasMore]);
 
   const loadMoreIssues = () => {
-    if (hasMore) setPage((prevPage) => prevPage + 1); // Increment page number
+    if (hasMore) setPage((prevPage) => prevPage + 1);
   };
 
   return (
@@ -95,48 +91,50 @@ export default function Issues({ filters }: { filters: any }) {
         </div>
       ) : (
         <div>
-          <div className="grid grid-rows-1 sm:grid-rows-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-1 gap-4">
             {issues && issues.length > 0 && issues.map((issue, i) => (
               <div
                 key={i}
-                className="py-1 px-4 bg-[#141414] border-2 border-gray-800 rounded-2xl shadow-md flex items-center justify-between"
+                className="py-2 px-3 sm:py-4 sm:px-6 bg-[#141414] border-2 border-gray-800 rounded-2xl shadow-md flex items-center justify-between flex-col sm:flex-row"
               >
                 <div>
-                  <div className="flex-col inline-block">
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <h3 className="text-lg font-semibold text-white">
-                          <span className="text-gray-400">#{issue.number}</span> {issue.title}
-                        </h3>
-                        <span className="px-2 bg-green-800 border-2 border-gray-600 text-white rounded-full mr-2">{issue.state}</span>
-                      </div>
-
-                      {issue.labels.slice(0, 4).map((label, index) => {
-                        const labelParts = label.name.split(':');
-                        const displayName = labelParts.length > 1 ? labelParts[1].trim() : label.name;
-
-                        let labelColor = colors[Math.floor(Math.random() * colors.length)];
-                        if (displayName.toLowerCase() === 'bug') labelColor = 'bg-red-500';
-                        if (displayName.toLowerCase() === 'in progress') labelColor = 'bg-yellow-500';
-                        if (displayName.toLowerCase() === 'good first issue') labelColor = 'bg-purple-500';
-
-                        return (
-                          <span key={index} className={`ml-2 px-2 py-1 ${labelColor} text-white rounded-full text-xs`}>
-                            {displayName}
-                          </span>
-                        );
-                      })}
-                    </div>
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
+                    <h3 className="text-sm sm:text-lg font-semibold text-white">
+                      <span className="text-gray-400">#{issue.number}</span> {issue.title}
+                    </h3>
+                    <span className="px-2 bg-green-800 border-2 border-gray-600 text-white rounded-full text-xs sm:text-sm">
+                      {issue.state}
+                    </span>
                   </div>
-                  <p className="text-sm mt-2 text-gray-400">{issue.user.login} opened on {new Date(issue.created_at).toLocaleDateString()}</p>
+
+                  <div className="mt-2">
+                    {issue.labels.slice(0, 4).map((label, index) => {
+                      const labelParts = label.name.split(':');
+                      const displayName = labelParts.length > 1 ? labelParts[1].trim() : label.name;
+
+                      let labelColor = colors[Math.floor(Math.random() * colors.length)];
+                      if (displayName.toLowerCase() === 'bug') labelColor = 'bg-red-500';
+                      if (displayName.toLowerCase() === 'in progress') labelColor = 'bg-yellow-500';
+                      if (displayName.toLowerCase() === 'good first issue') labelColor = 'bg-purple-500';
+
+                      return (
+                        <span key={index} className={`ml-1 px-2 py-1 text-xs sm:text-sm ${labelColor} text-white rounded-full`}>
+                          {displayName}
+                        </span>
+                      );
+                    })}
+                  </div>
+                  <p className="text-xs sm:text-sm mt-2 text-gray-400">
+                    {issue.user.login} opened on {new Date(issue.created_at).toLocaleDateString()}
+                  </p>
                 </div>
-                <div className="flex items-center">
-                  <span className="text-gray-400">{issue.comments} 💬</span>
+                <div className="flex items-center mt-2 sm:mt-0">
+                  <span className="text-xs sm:text-sm text-gray-400">{issue.comments} 💬</span>
                   <a
                     href={issue.html_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-4 py-1 bg-blue-500 text-white ml-3 rounded-2xl hover:bg-blue-600"
+                    className="px-4 py-1 text-xs sm:text-sm bg-blue-500 text-white ml-3 rounded-xl hover:bg-blue-600"
                   >
                     View
                   </a>
