@@ -5,8 +5,8 @@ import IssueFilter from '../_components/issueFilter';
 
 const page = () => {
     const [issueFilters, setIssueFilters] = useState({
-        state: [],
-        label: [],
+        state: '',
+        label: '',
         organizations: [],
         });
 

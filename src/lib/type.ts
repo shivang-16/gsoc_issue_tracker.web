@@ -19,9 +19,7 @@ type Project = {
   };
   
   export type Organisation = {
-    _id: {
-      $oid: string;
-    };
+    _id: string;
     organisation: string;
     github: string;
     gsoc_years: GSoCYears;

@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 export const BentoGrid = ({
   className,
@@ -21,6 +22,7 @@ export const BentoGrid = ({
 
 export const BentoGridItem = ({
   className,
+  id,
   title,
   description,
   header,
@@ -34,6 +36,7 @@ export const BentoGridItem = ({
   email,
 }: {
   className?: string;
+  id: string;
   title?: string | React.ReactNode;
   description?: string | React.ReactNode;
   header?: React.ReactNode;
@@ -55,7 +58,7 @@ export const BentoGridItem = ({
       )}
       style={{ minHeight: "12rem" }} // Minimum card height
     >
-      {/* <a href={url} className="flex-1 flex flex-col justify-between"> */}
+      <Link href={`/org/${id}`} className="flex-1 flex flex-col justify-between">
         {header}
         <div className="flex items-center justify-between mb-2 mt-2">
           {/* Title */}
@@ -121,7 +124,7 @@ export const BentoGridItem = ({
         <div className="font-sans font-normal text-neutral-600 text-xs dark:text-neutral-300 mb-4 line-clamp-3">
           {description}
         </div>
-      {/* </a> */}
+     
 
       {/* Technologies */}
       <div className="flex flex-wrap gap-2 mt-2">
@@ -134,6 +137,7 @@ export const BentoGridItem = ({
           </span>
         ))}
       </div>
+      </Link>
     </div>
   );
 };

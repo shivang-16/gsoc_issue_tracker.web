@@ -52,6 +52,7 @@ export default function Gsoc_Orgs({ top, filters }: { top?: boolean, filters?: a
         {items && items.map((item, i) => (
           <BentoGridItem
             key={i}
+            id = {item._id}
             title={item.organisation}
             description={item.description}
             header={<Skeleton item={item} />}

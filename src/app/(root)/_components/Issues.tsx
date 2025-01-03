@@ -37,8 +37,17 @@ export default function Issues({ filters }: { filters: any }) {
   const fetchIssues = async (page: number) => {
     setLoading(true);
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/gsoc/issues/popular?label=${filters.label}&organizations=${filters.organizations}&page=${page}`, {
+      // Log the filters to check if they are passed correctly
+      console.log('Filters:', filters);
+
+      // Convert the organizations array into a comma-separated string if needed
+      const organizationsParam = Array.isArray(filters.organizations) 
+        ? filters.organizations.join(',') 
+        : filters.organizations;
+
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/gsoc/issues/popular?label=${filters.label}&organizations=${organizationsParam}&page=${page}`, {
         method: 'GET',
+        // cache: 'force-cache',
         credentials: 'include',
       });
       
@@ -63,13 +72,16 @@ export default function Issues({ filters }: { filters: any }) {
   };
 
   useEffect(() => {
-    // Reset page and issues on filter change
-    setPage(1);
-    setIssues([]); // Clear previous issues when filters change
-    setHasMore(true); // Reset "hasMore" when filters change
-
-    fetchIssues(1);
+    setPage(1); // Reset page to 1 when filters change
+    setIssues([]); // Clear previous issues
+    setHasMore(true); // Reset "hasMore"
   }, [filters]);
+
+  useEffect(() => {
+    if (page === 1 || hasMore) {
+      fetchIssues(page);
+    }
+  }, [page, filters, hasMore]);
 
   const loadMoreIssues = () => {
     if (hasMore) setPage((prevPage) => prevPage + 1); // Increment page number
